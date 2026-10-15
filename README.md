@@ -94,7 +94,7 @@ docker compose version
 
 ```bash
 git clone https://github.com/mehti-roshan/dating-search-engine
-cd dating-search
+cd dating-search-engine
 ```
 
 ### 2. Install Dependencies
