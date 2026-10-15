@@ -1,0 +1,13 @@
+[project]
+name = "dating-search-engine"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=5.1.0",
+    "fastapi>=0.143.1",
+    "python-dotenv>=1.2.4",
+    "qdrant-client>=1.19.1",
+    "sentence-transformers>=6.1.0",
+    "tqdm>=4.70.1",
+    "uvicorn[standard]>=0.54.0",
+]

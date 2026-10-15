@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dating Search</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <a class="logo" href="/">✳ somewhere</a>
+      <span class="header-note">A more human kind of search</span>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow">SEMANTIC PEOPLE SEARCH</p>
+
+      <h1>Find someone<br><em>interesting.</em></h1>
+
+      <p class="subtitle">
+        Go beyond checkboxes. Search for the kind of person
+        you'd actually want to talk to.
+      </p>
+
+      <form id="search-form">
+        <div class="search-box">
+          <label class="sr-only" for="query">Describe your ideal match</label>
+          <textarea
+            id="query"
+            name="query"
+            rows="2"
+            placeholder="Someone into gothic literature, dark humor, and long conversations..."
+            required
+          ></textarea>
+
+          <details class="filters">
+            <summary>
+              <span>☷ &nbsp; Filters</span>
+              <span class="muted">Optional preferences ⌄</span>
+            </summary>
+
+            <div class="filter-grid">
+              <div class="field">
+                <label for="min_age">Minimum age</label>
+                <input
+                  id="min_age"
+                  name="min_age"
+                  type="number"
+                  min="18"
+                  max="100"
+                  placeholder="18"
+                >
+              </div>
+
+              <div class="field">
+                <label for="max_age">Maximum age</label>
+                <input
+                  id="max_age"
+                  name="max_age"
+                  type="number"
+                  min="18"
+                  max="100"
+                  placeholder="40"
+                >
+              </div>
+
+              <div class="field">
+                <label for="location">Location</label>
+                <input
+                  id="location"
+                  name="location"
+                  type="text"
+                  placeholder="San Francisco"
+                >
+              </div>
+
+              <div class="field">
+                <label for="sex">Sex</label>
+                <select id="sex" name="sex">
+                  <option value="">Any</option>
+                  <option value="f">Female</option>
+                  <option value="m">Male</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="orientation">Orientation</label>
+                <select id="orientation" name="orientation">
+                  <option value="">Any</option>
+                  <option value="straight">Straight</option>
+                  <option value="gay">Gay</option>
+                  <option value="bisexual">Bisexual</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="status">Relationship status</label>
+                <select id="status" name="status">
+                  <option value="">Any</option>
+                  <option value="single">Single</option>
+                  <option value="available">Available</option>
+                  <option value="seeing someone">Seeing someone</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="min_height">Minimum height (inches)</label>
+                <input
+                  id="min_height"
+                  name="min_height"
+                  type="number"
+                  min="1"
+                  max="98"
+                  step="0.5"
+                  placeholder="64"
+                >
+              </div>
+
+              <div class="field">
+                <label for="max_height">Maximum height (inches)</label>
+                <input
+                  id="max_height"
+                  name="max_height"
+                  type="number"
+                  min="1"
+                  max="98"
+                  step="0.5"
+                  placeholder="78"
+                >
+              </div>
+            </div>
+
+            <p class="filter-note">
+              Leave a field empty to ignore that filter.
+            </p>
+          </details>
+
+          <div class="search-actions">
+            <span class="muted">Search by interests, personality, or vibes.</span>
+            <button id="search-button" type="submit">
+              Find people <span aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="results">
+      <div class="results-header">
+        <div>
+          <p class="eyebrow">YOUR DISCOVERIES</p>
+          <h2>People worth a closer look</h2>
+        </div>
+
+        <span id="result-count" class="muted">Ready when you are</span>
+      </div>
+
+      <div id="results" class="results-list">
+        <div class="empty-state">
+          <span class="empty-icon">✳</span>
+          <h3>Curiosity looks good on you.</h3>
+          <p>
+            Describe someone you'd like to meet and discover
+            profiles that match what you're looking for.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Less swiping. More substance.</span>
+      <span>Similarity isn't compatibility.</span>
+    </footer>
+  </main>
+</body>
+</html>
