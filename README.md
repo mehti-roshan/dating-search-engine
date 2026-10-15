@@ -93,34 +93,11 @@ docker compose version
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mehti-roshan/dating-search-engine
 cd dating-search
 ```
 
-Replace `<repository-url>` with the URL of your Git repository.
-
-### 2. Initialize the Python Project
-
-If you are starting from scratch rather than cloning an existing project, create the project directory and initialize it with `uv`:
-
-```bash
-mkdir dating-search
-cd dating-search
-
-uv init --package
-```
-
-If `.python-version` does not exist, select a Python version:
-
-```bash
-uv python pin 3.11
-```
-
-Use the version appropriate for your project.
-
-If you already have a `pyproject.toml`, `uv.lock`, and `.python-version` in the repository, **do not run `uv init` again**. Simply clone the repository and continue.
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 For an existing project with a committed lockfile:
 
@@ -128,7 +105,7 @@ For an existing project with a committed lockfile:
 uv sync
 ```
 
-### 4. Configure Environment Variables
+### 3. Configure Environment Variables
 
 Copy the `.env.example` to `.env` file in the project root:
 
@@ -146,7 +123,7 @@ The embedding model `BAAI/bge-small-en-v1.5` generates 384-dimensional vectors. 
 
 Do not commit `.env` to version control.
 
-### 5. Start Qdrant with Docker Compose
+### 4. Start Qdrant with Docker Compose
 
 Start the database from the project root:
 
@@ -188,7 +165,7 @@ docker compose down
 
 Stopping the container does not normally delete persisted data. Avoid removing Docker volumes unless you intentionally want to delete the database contents.
 
-### 6. Ingest Profiles into Qdrant
+### 5. Ingest Profiles into Qdrant
 
 Once Qdrant is running, execute:
 
@@ -211,7 +188,7 @@ For approximately 59,000 profiles, ingestion can take several minutes or longer,
 
 Wait for the script to finish successfully before starting the API.
 
-### 8. Start the API and Web Interface
+### 6. Start the API and Web Interface
 
 Start the FastAPI application from the project root:
 
@@ -225,7 +202,7 @@ Once the server starts, open:
 
 **Web interface:** http://127.0.0.1:8000
 
-### 9. Search Profiles
+### 7. Search Profiles
 
 The web interface supports natural language queries and structured filters.
 
