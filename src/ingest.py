@@ -16,7 +16,7 @@ def ingest():
       batch.clear()
 
   if batch:
-      upload_batch(batch)
+    upload_batch(batch)
 
   print("Ingestion complete!")
 

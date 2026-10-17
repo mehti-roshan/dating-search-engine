@@ -1,6 +1,7 @@
 from src.db import client, models
 from src.embeddings import embed_query
-from src.config import COLLECTION_NAME
+from src.reranking import rerank_profiles
+from src.config import COLLECTION_NAME, USE_RERANKER
 
 def create_query_filter(
   sex: str | None = None,
@@ -125,17 +126,40 @@ def search_profiles(
   points = client.query_points(collection_name=COLLECTION_NAME, query=query_embed, query_filter=filter, limit=limit, with_payload=True).points
   return points
 
+def clamp(x, lower, upper):
+  return max(lower, min(x, upper))
+
+def search_profiles_reranker(
+  query: str,
+  filter: models.Filter | None,
+  limit: int = 10,
+  candidate_limit: int | None = None,
+):
+  if candidate_limit is None:
+    candidate_limit = clamp(limit * 2, limit + 10, limit + 30)
+  
+  points = search_profiles(query=query, filter=filter, limit=candidate_limit)
+  return rerank_profiles(query, [point.payload for point in points])[:limit]
+
+def search_profiles_auto(
+  query: str,
+  filter: models.Filter | None,
+  limit: int = 10,
+  candidate_limit: int | None = None,
+):
+  if USE_RERANKER:
+    return search_profiles_reranker(query=query, filter=filter, limit=limit)
+  else:
+    return search_profiles(query=query, filter=filter, limit=limit, candidate_limit=candidate_limit)
+
 if __name__ == "__main__":
-  # query = input("Describe your ideal match: ")
-  query = "a goth or gothic woman that's interested in the occult, vampires and horror"
+  query = input("Describe your ideal match: ")
 
   print(f"\n--- Query: {query} ---")
-  filter = create_query_filter(
-    sex='f',
-    # orientation='gay',
-    min_age=49,
-  )
-  results = search_profiles(query, filter=filter, limit=3)
+  filter = create_query_filter(sex='f')
+  limit = 3
+
+  results = search_profiles_auto(query=query, filter=filter, limit=limit)
 
   for i, point in enumerate(results, 1):
     print(f"\n--- Match {i} : Score: {point.score:.4f} ---")

@@ -1,12 +1,6 @@
-from functools import lru_cache
-from sentence_transformers import SentenceTransformer
-from src.config import EMBEDDING_MODEL, BATCH_SIZE
+from src.config import BATCH_SIZE
 from src.dataset import ESSAY_PROMPTS
-
-@lru_cache(maxsize=1)
-def get_model() -> SentenceTransformer:
-  model = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
-  return model
+from src.models import get_embedding_model
 
 def _clean(value) -> str:
   """Convert a dataset value into clean text."""
@@ -69,13 +63,13 @@ def profile_to_text(profile: dict) -> str:
   return "\n".join(sections)
 
 def embed_profiles(profile_texts):
-  return get_model().encode(profile_texts, batch_size=BATCH_SIZE, normalize_embeddings=True, show_progress_bar=False)
+  return get_embedding_model().encode(profile_texts, batch_size=BATCH_SIZE, normalize_embeddings=True, show_progress_bar=False)
 
 def embed_query(query):
   instruction = (
     "Represent this sentence for searching relevant passages: "
   )
-  return get_model().encode(
+  return get_embedding_model().encode(
     [instruction + query],
     normalize_embeddings=True,
   )[0]

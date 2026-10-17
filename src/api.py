@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 
-from src.search import create_query_filter, search_profiles
+from src.search import create_query_filter, search_profiles_auto
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(name)s | %(message)s")
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ def search(request: SearchRequest) -> dict[str, Any]:
   try:
     query_filter = create_query_filter(**filters)
 
-    results = search_profiles(
+    results = search_profiles_auto(
       query=request.query,
       filter=query_filter,
       limit=request.limit,
@@ -72,7 +72,6 @@ def search(request: SearchRequest) -> dict[str, Any]:
 
   except Exception:
     logger.exception("Profile search failed")
-    # Log the real exception on the server in a production app.
     raise HTTPException(
       status_code=500,
       detail="Search failed. Please try again.",

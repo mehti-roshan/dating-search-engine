@@ -349,7 +349,6 @@ Check that:
 
 ## Future Improvements
 
-- Add a reranking model to improve the ordering of semantic search results.
 - Improve profile text preprocessing and embedding strategies.
 - Add pagination and sorting.
 - Add automated tests for search filters and API behavior.
